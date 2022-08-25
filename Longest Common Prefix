@@ -85,3 +85,33 @@ class Solution {
         return strs[0].substring(0,count+1);        
     }
 }
+
+//JAVA solution from others
+public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0)
+            return "";
+        
+        Arrays.sort(strs);
+        String first = strs[0];
+        String last = strs[strs.length - 1];
+        int c = 0;
+        while(c < first.length())
+        {
+            if (first.charAt(c) == last.charAt(c))
+                c++;
+            else
+                break;
+        }
+        return c == 0 ? "" : first.substring(0, c);
+    }
+}
+
+//PYTHON solution from others
+class Solution:
+    def longestCommonPrefix(self, S: List[str]) -> str:
+        if not S: return ''
+        m, M, i = min(S), max(S), 0
+        for i in range(min(len(m),len(M))):
+            if m[i] != M[i]: break
+        else: i += 1
+        return m[:i]
