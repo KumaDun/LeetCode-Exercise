@@ -1,0 +1,77 @@
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+ 
+
+Example 1:
+
+Input: s = "()"
+Output: true
+Example 2:
+
+Input: s = "()[]{}"
+Output: true
+Example 3:
+
+Input: s = "(]"
+Output: false
+ 
+
+Constraints:
+
+1 <= s.length <= 104
+s consists of parentheses only '()[]{}'.
+
+//PYTHON
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        d = {'(':')','{':'}','[':']'}
+        
+        for char in s:
+            if char in d:
+                stack.append(char)
+            else:
+                if len(stack)<=0 or char != d[stack.pop()] :
+                    return False
+                else:
+                    continue
+        if len(stack) == 0:
+            return True
+        else:
+            return False
+        
+  //JAVA
+  class Solution {
+    public boolean isValid(String s) {
+        HashMap<Character,Character> dict = new HashMap();
+        dict.put('(',')');
+        dict.put('[',']');
+        dict.put('{','}');
+        
+        Stack<Character> stack = new Stack();
+        
+        for (int i = 0 ;i<s.length();i++){
+            char c = s.charAt(i);
+            if (dict.containsKey(c)){
+                stack.push(c);
+            }
+            else{
+                if (stack.isEmpty()){
+                    return false;
+                }
+                char c_poped = stack.peek();
+                if ( c == dict.get(c_poped)) {
+                    stack.pop();
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        return(stack.isEmpty());
+    }
+}
