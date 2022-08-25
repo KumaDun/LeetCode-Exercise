@@ -22,6 +22,8 @@ Constraints:
 
 */
 
+//Python 
+
 class Solution:
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
         my_dic = {}
@@ -39,5 +41,36 @@ class Solution:
                     result.append(num_2)
                     my_dic[num_2] -= 1
         return result
+ 
+//JAVA
+
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        Map<Integer,Integer> my_map = new HashMap();
+        int nums1_len = nums1.length;
+        int nums2_len = nums2.length;
+        List<Integer> my_list = new LinkedList();
+        
+        for (int i=0;i<nums1_len;i++) {
+            if (!my_map.containsKey(nums1[i])){
+                my_map.put(nums1[i],1);
+            }
+            else{
+                my_map.replace(nums1[i],my_map.get(nums1[i])+1);
+            }
+        }
+        
+        for (int j:nums2) {
+            if (my_map.containsKey(j)){
+                if (my_map.get(j)>0){
+                    my_list.add(j);
+                    my_map.replace(j,my_map.get(j)-1);
+                }
+            }
+        }
+        return my_list.stream().mapToInt(Integer::intValue).toArray();
+        
+    }
+}
         
         
