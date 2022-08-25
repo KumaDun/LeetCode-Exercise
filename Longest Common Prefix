@@ -48,3 +48,40 @@ class Solution:
             return ""
             
 //JAVA
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        int shortest_len = 201;
+        for (String string : strs) {
+            if (string.length()<shortest_len) {
+                shortest_len = string.length();
+            }
+        }
+        
+        char[] letters = new char[strs.length];
+        int letter_index = 0;
+        int count = -1;
+        boolean is_equal = true;
+        
+        for (int i=0;i<shortest_len;i++){
+            for(String string:strs){
+                letters[letter_index] = string.charAt(i);
+                letter_index++;
+            }
+            for(char letter: letters){
+                if(letter != letters[0]){
+                    is_equal = false;
+                }
+            }
+            if (is_equal) {
+                count ++;
+                letters = new char[strs.length];
+                letter_index = 0;
+            }
+            else{
+                break;
+            }
+        }
+        
+        return strs[0].substring(0,count+1);        
+    }
+}
